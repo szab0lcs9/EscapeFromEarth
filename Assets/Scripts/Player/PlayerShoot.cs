@@ -18,9 +18,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float shootingRange;
 
-    [SerializeField]
-    private float hitForce = 0.5f;
-
+    private float hitForce = 0.1f;
     private float nextShootIn;
 
 
@@ -29,6 +27,9 @@ public class PlayerShoot : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         laser = GetComponent<LineRenderer>();
+        laser.material = new Material(Shader.Find("Sprites/Default"));
+        laser.startColor = Color.green;
+        laser.endColor = Color.green;
     }
 
     // Update is called once per frame
