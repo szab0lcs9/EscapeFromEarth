@@ -6,7 +6,8 @@ using UnityEngine.PlayerLoop;
 
 public class Rotate : MonoBehaviour
 {
-    GameObject[] celestialBodies;
+    [SerializeField]
+    GameObject prefab;
 
     [SerializeField]
     private float rotationRatio;
@@ -15,13 +16,13 @@ public class Rotate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        celestialBodies = GameObject.FindGameObjectsWithTag("CelestialBody");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -31,17 +32,12 @@ public class Rotate : MonoBehaviour
 
     void RotateAroundYAxis()
     {
-        foreach (GameObject target in celestialBodies)
-        {
+        float secs = 86400.0f;
+        float angle = 0.0f;
 
-            float secs = 86400.0f;
-            float degree = 0.0f;
+        if (secs != 0)
+            angle = 360 / secs * rotationRatio;
 
-            if (secs != 0)
-                degree = 360 / secs * target.GetComponent<Rotate>().rotationRatio;
-
-            if (target != null)
-                target.GetComponent<Rigidbody>().transform.Rotate(0.0f, degree * Time.deltaTime, 0.0f);
-        }
+        prefab.GetComponent<Transform>().Rotate(Vector3.up, angle * Time.deltaTime);            
     }
 }
