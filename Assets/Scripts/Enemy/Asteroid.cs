@@ -1,11 +1,10 @@
-using Assets.Scripts.Enemy;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Asteroid : MonoBehaviour, IEnemy, IDamageable
 {
+    ObjectPool<Asteroid> pool;
+
     [SerializeField]
     private float health = 100f;
     public float Health { get => health; set => health = value; }
@@ -13,14 +12,19 @@ public class Asteroid : MonoBehaviour, IEnemy, IDamageable
     private float shield;
     public float Shield { get => shield; set => shield = 0; }
 
-    public void Die()
+    public void SetPool(ObjectPool<Asteroid> pool)
     {
-        Destroy(gameObject);
+        this.pool = pool;
     }
 
-    public void TakeDamage(float amount)
+    public void Die()
     {
-        health -= amount;
+        pool.Release(this);
+    }
+
+    public void TakeDamage(float damageTaken)
+    {
+        health -= damageTaken;
         if (health <= 0f)
         {
             Die();
