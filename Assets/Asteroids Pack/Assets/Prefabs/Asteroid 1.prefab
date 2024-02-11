@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 8106693646228575287}
   m_Layer: 0
   m_Name: Asteroid 1
-  m_TagString: Enemy
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -272,7 +272,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151664}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 0.6
   m_Drag: 1
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
