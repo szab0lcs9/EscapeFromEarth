@@ -14,26 +14,29 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSpeed;
 
     [SerializeField]
+    private float strafeSpeed;
+
+    [SerializeField]
     ParticleSystem exhaustFumes;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        movementSpeed = 10f;
-        rotationSpeed = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayExhaustFumesParticleOnMoving();
     }
 
     private void FixedUpdate()
     {
         MovePlayerForwardOrBackward();
         RotatePlayer();
-        PlayExhaustFumesParticleOnMoving();
+        StrafeLeft();
+        StrafeRight();
     }
 
     private void MovePlayerForwardOrBackward()
@@ -51,11 +54,28 @@ public class PlayerMovement : MonoBehaviour
         rb.AddTorque(rotation);
     }
 
+    private void StrafeLeft()
+    {
+        if (Input.GetKey("q"))
+        {
+            Vector3 strafe = new Vector3(-strafeSpeed * Time.deltaTime, 0.0f, 0.0f);
+            rb.AddRelativeForce(strafe);
+        }
+    }
+
+    private void StrafeRight()
+    {
+        if (Input.GetKey("e"))
+        {
+            Vector3 strafe = new Vector3(strafeSpeed * Time.deltaTime, 0.0f, 0.0f);
+            rb.AddRelativeForce(strafe);
+        }
+    }
+
 
     private void PlayExhaustFumesParticleOnMoving()
     {
         float verticalInput = Input.GetAxis("Vertical");
-
 
         if (verticalInput != 0)
         {
