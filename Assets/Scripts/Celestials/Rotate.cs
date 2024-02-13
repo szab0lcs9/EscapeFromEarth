@@ -7,23 +7,7 @@ using UnityEngine.PlayerLoop;
 public class Rotate : MonoBehaviour
 {
     [SerializeField]
-    GameObject prefab;
-
-    [SerializeField]
     private float rotationRatio;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     void FixedUpdate()
     {
@@ -38,6 +22,6 @@ public class Rotate : MonoBehaviour
         if (secs != 0)
             angle = 360 / secs * rotationRatio;
 
-        prefab.GetComponent<Transform>().Rotate(Vector3.up, angle * Time.deltaTime);            
+        gameObject.GetComponent<Transform>().Rotate(Vector3.up, angle * Time.deltaTime);            
     }
 }
