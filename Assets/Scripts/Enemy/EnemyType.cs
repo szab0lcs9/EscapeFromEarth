@@ -8,7 +8,7 @@ namespace Assets.Scripts.Enemy
 {
     public enum EnemyType
     {
-        Asteroid,
-        Alien
+        ASTEROID,
+        ALIEN
     }
 }

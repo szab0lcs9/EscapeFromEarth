@@ -7,48 +7,37 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
+using Assets.Scripts.Enemy.FSM;
 
 namespace Assets.Scripts.Enemy
 {
     public class PoolableEnemySpawner : MonoBehaviour
     {
+        AlienStateManager alienStateManager;
         ObjectPool<Asteroid> asteroidPool;
         ObjectPool<Alien> alienPool;
         List<Asteroid> activeAsteroids = new List<Asteroid>();
+        List<Alien> activeAliens = new List<Alien>();
         Asteroid asteroid;
         Alien alien;
         Vector3 playerPosition;
+        Vector3 previousPlayerPosition;
         Vector3 randomPosition;
-        float releaseRadius = 40f;
-        float maxHealth = 100f;
+        Vector3 alienSpawnPosition;
+        readonly float releaseRadius = 40f;
+        readonly float maxShield = 100f;
+        readonly float maxHealth = 100f;
+        readonly int maxNumOfAsteroids = 10;
+        readonly int maxNumOfAliens = 2;
         int randomPrefab;
-        int maxNumOfAsteroids = 10;
-        int maxNumOfAliens = 10;
 
-        [SerializeField]
-        AsteroidFactory asteroidFactory;
-
+        [SerializeField] AsteroidFactory asteroidFactory;
         [SerializeField] AlienFactory alienFactory;
+        [SerializeField] GameObject[] asteroidPrefabs;
+        [SerializeField] GameObject[] alienPrefabs;
+        [SerializeField] float asteroidSpawnRadius = 40f;
+        [SerializeField] float asteroidSpawnInterval = 2f;
 
-        [SerializeField]
-        GameObject[] asteroidPrefabs;
-
-        [SerializeField]
-        GameObject[] alienPrefabs;
-
-        [SerializeField]
-        float spawnRadius = 40f;
-
-        [SerializeField]
-        float spawnInterval = 2f;
-
-
-        void Start()
-        {
-            asteroidFactory = new AsteroidFactory();
-
-            StartCoroutine(SpawnAsteroids());
-        }
 
         void Awake()
         {
@@ -60,13 +49,25 @@ namespace Assets.Scripts.Enemy
                     maxSize: maxNumOfAsteroids);
 
             alienPool = new ObjectPool<Alien>(
-                    createFunc: () => (Alien)alienFactory.SpawnEnemy(alienPrefabs[randomPrefab], randomPosition),
+                    createFunc: () => (Alien)alienFactory.SpawnEnemy(alienPrefabs[0], alienSpawnPosition),
                     actionOnRelease: OnReleaseAlien,
                     actionOnDestroy: OnDestroyAlien,
                     defaultCapacity: maxNumOfAliens,
                     maxSize: maxNumOfAliens);
         }
 
+        void Start()
+        {
+            asteroidFactory = new AsteroidFactory();
+            alienFactory = new AlienFactory();
+            alienStateManager = new AlienStateManager(alien);
+
+            playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            previousPlayerPosition = playerPosition;
+
+            StartCoroutine(SpawnAsteroids());
+            StartCoroutine(SpawnAliens());
+        }
 
         void Update()
         {
@@ -77,7 +78,28 @@ namespace Assets.Scripts.Enemy
         }
 
         #region Pool for Aliens
-        private void OnDestroyAlien(Alien alien)
+        IEnumerator SpawnAliens()
+        {
+            while (true)
+            {
+                if (alienPool.CountActive < maxNumOfAliens)
+                {
+                    Vector3 playerMovementDirection = playerPosition - previousPlayerPosition;
+
+                    this.alien = alienPool.Get();
+                    this.alien.Initialize(alienPool, maxHealth, maxShield);
+                    this.alien.transform.position = playerPosition + playerMovementDirection.normalized;
+                    alienStateManager.Initialize(new IdleState(alien));
+                    this.alien.gameObject.SetActive(true);
+
+                    activeAliens.Add(this.alien);
+
+                }
+                yield return new WaitForSeconds(asteroidSpawnInterval);
+            }
+        }
+
+            private void OnDestroyAlien(Alien alien)
         {
             alien.Die();
         }
@@ -89,6 +111,28 @@ namespace Assets.Scripts.Enemy
         #endregion
 
         #region Pool for Asteroids
+        IEnumerator SpawnAsteroids()
+        {
+            while (true)
+            {
+                if (asteroidPool.CountActive < maxNumOfAsteroids)
+                {
+
+                    randomPosition = Random.insideUnitCircle * asteroidSpawnRadius;
+                    randomPosition.y = 0;
+
+                    this.asteroid = asteroidPool.Get();
+                    this.asteroid.Initialize(asteroidPool, maxHealth);
+                    this.asteroid.transform.position = playerPosition + randomPosition;
+                    this.asteroid.gameObject.SetActive(true);
+
+                    activeAsteroids.Add(this.asteroid);
+
+                }
+                yield return new WaitForSeconds(asteroidSpawnInterval);
+            }
+        }
+
         void OnReleaseAsteroid(Asteroid asteroid)
         {
             asteroid.gameObject.SetActive(false);
@@ -127,28 +171,6 @@ namespace Assets.Scripts.Enemy
                         Debug.LogError(ex.Message);
                     }
                 }
-            }
-        }
-
-        IEnumerator SpawnAsteroids()
-        {
-            while (true)
-            {
-                if (asteroidPool.CountActive < maxNumOfAsteroids)
-                {
-
-                    randomPosition = Random.insideUnitCircle * spawnRadius;
-                    randomPosition.y = 0;
-
-                    this.asteroid = asteroidPool.Get();
-                    this.asteroid.Initialize(asteroidPool, maxHealth);
-                    this.asteroid.transform.position = playerPosition + randomPosition;
-                    this.asteroid.gameObject.SetActive(true);
-
-                    activeAsteroids.Add(this.asteroid);
-
-                }
-                yield return new WaitForSeconds(spawnInterval);
             }
         }
 

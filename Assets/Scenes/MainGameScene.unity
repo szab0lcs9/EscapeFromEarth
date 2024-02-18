@@ -385,9 +385,9 @@ MonoBehaviour:
   - {fileID: 141316, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
   - {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
   alienPrefabs:
-  - {fileID: 1247619388254216, guid: 873baea37cdd7424c83ba02ad24c23b2, type: 3}
-  spawnRadius: 10
-  spawnInterval: 2
+  - {fileID: 8816710807524797821, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+  asteroidSpawnRadius: 40
+  asteroidSpawnInterval: 2
 --- !u!4 &464422637
 Transform:
   m_ObjectHideFlags: 0
@@ -1074,6 +1074,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c21da47a19cd7254ea023c0733d64ce3, type: 3}
+--- !u!1001 &2756957855743547904
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 911.443
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781923159820757177, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816710807524797821, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
+      propertyPath: m_Name
+      value: Spacefrigate
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8b8e332dea45b24f96a2458e1bbb680, type: 3}
 --- !u!1001 &5365073665191933492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1151,3 +1208,4 @@ SceneRoots:
   - {fileID: 464422637}
   - {fileID: 5365073665191933492}
   - {fileID: 1844246803}
+  - {fileID: 2756957855743547904}
