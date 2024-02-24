@@ -8,7 +8,7 @@ public class EnvironmentalBehavior : MonoBehaviour
 {
     GameObject[] celestialBodies;
 
-    private float G = 6.674f * Mathf.Pow(10f, -5f);
+    private readonly float G = 6.674f * Mathf.Pow(10f, -5f);
 
     [SerializeField]
     private float timeScale;
