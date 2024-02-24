@@ -120,8 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d8d15ac3cdcb04ab3a17223579151e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  shield: 0
+  asteroidDetectionRange: 2
+  avoidanceForce: 1
+  health: 100
+  shield: 150
 --- !u!54 &1066441355363188582
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,9 +132,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8816710807524797821}
   serializedVersion: 4
-  m_Mass: 0.015
+  m_Mass: 1.5
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

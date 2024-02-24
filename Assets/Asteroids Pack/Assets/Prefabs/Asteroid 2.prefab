@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 423466}
   - component: {fileID: 3396308}
   - component: {fileID: 2330530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: test_asteroid2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 11421226}
   - component: {fileID: 8828563750470988980}
   - component: {fileID: 9173747101846769037}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Asteroid 2
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141316}
   serializedVersion: 4
-  m_Mass: 0.2
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 431242}
   - component: {fileID: 3326240}
   - component: {fileID: 2336382}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: test_asteroid2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 499402}
   - component: {fileID: 3333138}
   - component: {fileID: 2329180}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: test_asteroid2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 453352}
   - component: {fileID: 20511958}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: test_asteroid_LODGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
