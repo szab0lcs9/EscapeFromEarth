@@ -42,9 +42,6 @@ public class Asteroid : MonoBehaviour, IEnemy, IDamageable
         }
     }
 
-    public void Attack() { }
-
-
     public void MoveAsteroid()
     {
         gameObject.GetComponent<Rigidbody>().AddRelativeForce(Random.Range(minForce, maxForce), 0.0f, Random.Range(minForce, maxForce));
