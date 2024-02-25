@@ -5,10 +5,24 @@ using UnityEngine;
 
 public class SpaceStation : MonoBehaviour
 {
-    [SerializeField]
-    float initialVelocity;
+    [SerializeField] float initialVelocity;
+    Transform passengersDeck;
+    float rotationSpeed = 2.5f;
 
-    private void FixedUpdate()
+    void Start()
+    {
+        passengersDeck = transform.Find("module7");
+    }
+
+    void Update()
+    {
+        if (passengersDeck != null)
+        {
+            passengersDeck.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
+        }
+    }
+
+    void FixedUpdate()
     {
         gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * initialVelocity * Time.deltaTime);
     }
