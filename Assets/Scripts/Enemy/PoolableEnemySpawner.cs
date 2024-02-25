@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
-using Assets.Scripts.Enemy.FSM;
 
 namespace Assets.Scripts.Enemy
 {
@@ -24,11 +20,11 @@ namespace Assets.Scripts.Enemy
         Vector3 previousPlayerPosition;
         Vector3 randomPosition;
         Vector3 alienSpawnPosition;
-        readonly float releaseRadius = 40f;
-        readonly float maxShield = 100f;
-        readonly float maxHealth = 100f;
-        readonly int maxNumOfAsteroids = 10;
-        readonly int maxNumOfAliens = 2;
+        float releaseRadius = 40f;
+        float maxShield = 100f;
+        float maxHealth = 100f;
+        int maxNumOfAsteroids = 20;
+        int maxNumOfAliens = 1;
         int randomPrefab;
 
         [SerializeField] AsteroidFactory asteroidFactory;
@@ -60,7 +56,7 @@ namespace Assets.Scripts.Enemy
         {
             asteroidFactory = new AsteroidFactory();
             alienFactory = new AlienFactory();
-            alienStateManager = new AlienStateManager(alien);
+            alienStateManager = gameObject.AddComponent<AlienStateManager>();
 
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
             previousPlayerPosition = playerPosition;
@@ -85,21 +81,27 @@ namespace Assets.Scripts.Enemy
                 if (alienPool.CountActive < maxNumOfAliens)
                 {
                     Vector3 playerMovementDirection = playerPosition - previousPlayerPosition;
+                    Vector3 initialPosition = playerPosition + playerMovementDirection.normalized ;
 
-                    this.alien = alienPool.Get();
-                    this.alien.Initialize(alienPool, maxHealth, maxShield);
-                    this.alien.transform.position = playerPosition + playerMovementDirection.normalized;
-                    alienStateManager.Initialize(new IdleState(alien));
-                    this.alien.gameObject.SetActive(true);
+                    if (initialPosition != playerPosition)
+                    {
+                        alien = alienPool.Get();
+                        alien.Initialize(alienPool, maxHealth, maxShield, initialPosition);
 
-                    activeAliens.Add(this.alien);
+                        alienStateManager.Initialize(alien);
+
+                        alien.gameObject.SetActive(true);
+
+                        activeAliens.Add(alien);
+
+                    }
 
                 }
                 yield return new WaitForSeconds(asteroidSpawnInterval);
             }
         }
 
-            private void OnDestroyAlien(Alien alien)
+        private void OnDestroyAlien(Alien alien)
         {
             alien.Die();
         }
@@ -121,12 +123,12 @@ namespace Assets.Scripts.Enemy
                     randomPosition = Random.insideUnitCircle * asteroidSpawnRadius;
                     randomPosition.y = 0;
 
-                    this.asteroid = asteroidPool.Get();
-                    this.asteroid.Initialize(asteroidPool, maxHealth);
-                    this.asteroid.transform.position = playerPosition + randomPosition;
-                    this.asteroid.gameObject.SetActive(true);
+                    asteroid = asteroidPool.Get();
+                    asteroid.Initialize(asteroidPool, maxHealth);
+                    asteroid.transform.position = playerPosition + randomPosition;
+                    asteroid.gameObject.SetActive(true);
 
-                    activeAsteroids.Add(this.asteroid);
+                    activeAsteroids.Add(asteroid);
 
                 }
                 yield return new WaitForSeconds(asteroidSpawnInterval);
@@ -151,6 +153,7 @@ namespace Assets.Scripts.Enemy
             }
         }
 
+        // TODO: áthelyezni az Asteroid osztályba
         private void ReleaseAsteroidWhenTooFarFromPlayer()
         {
             for (int i = 0; i < activeAsteroids.Count; i++)
