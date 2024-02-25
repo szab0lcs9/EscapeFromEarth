@@ -1,44 +1,60 @@
-﻿using System;
+using Assets.Scripts.Enemy.FSM;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Enemy.FSM
+public class AlienStateManager : MonoBehaviour
 {
-    [Serializable]
-    public class AlienStateManager
+    Alien alien;
+    Transform player;
+    AlienStateMachine alienStateMachine;
+
+    [SerializeField] float sightDistance = 3.0f;
+    [SerializeField] float attackDistance = 1.0f;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        public IState CurrentState { get; private set; }
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
-        public IdleState idleState;
-        public ChaseState chaseState;
-        public AttackState attackState;
-
-        public AlienStateManager(Alien alien)
+    // Update is called once per frame
+    void Update()
+    {
+        if (alien != null)
         {
-            this.idleState = new IdleState(alien);
-            this.chaseState = new ChaseState(alien);
-            this.attackState = new AttackState(alien);
+            alienStateMachine.Update();
+            HandleStates();
         }
 
-        public void Initialize(IState startingState)
-        {
-            CurrentState = startingState;
-            startingState.Enter();
-        }
+    }
 
-        public void TransitionTo(IState nextState)
-        {
-            CurrentState.Exit();
-            CurrentState = nextState;
-            nextState.Enter();
-        }
+    private void HandleStates()
+    {
+        float sqrDistance = CalculateSqrDistance(player, alien.transform);
 
-        public void Update()
-        {
-            CurrentState?.Update();
-        }
+        if (sqrDistance < sightDistance * sightDistance)
+            alienStateMachine.TransitionTo(new ChaseState(alien));
+
+        if (sqrDistance < attackDistance * attackDistance)
+            alienStateMachine.TransitionTo(new AttackState(alien));
+    }
+
+
+    public float CalculateSqrDistance(Transform obj1, Transform obj2)
+    {
+        Vector3 distance = obj1.position - obj2.position;
+
+        return distance.sqrMagnitude;
+    }
+
+
+    public void Initialize(Alien alien)
+    {
+        this.alien = alien;
+
+        alienStateMachine = new AlienStateMachine(alien);
+        alienStateMachine.Initialize(new IdleState(alien));
     }
 }

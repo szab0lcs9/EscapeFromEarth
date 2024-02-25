@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackState : IState
 {
     Alien alien;
+    GameObject player;
 
     public AttackState(Alien alien)
     {
@@ -13,16 +14,18 @@ public class AttackState : IState
 
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void Update()
     {
+        alien.transform.LookAt(player.transform);
+        alien.AvoidFromAsteroids();
         alien.Attack();
     }
 }

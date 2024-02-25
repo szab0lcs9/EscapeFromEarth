@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IdleState : IState
 {
-    readonly Alien alien;
+    Alien alien;
 
     public IdleState(Alien alien)
     {
