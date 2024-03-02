@@ -19,7 +19,7 @@ public class AttackState : IState
 
     public void Exit()
     {
-
+        alien.StopCoroutine("MissileLaunch");
     }
 
     public void Update()

@@ -21,7 +21,7 @@ public class ChaseState : IState
 
     public void Exit()
     {
-        
+        alien.StopMovement();
     }
 
     public void Update()
