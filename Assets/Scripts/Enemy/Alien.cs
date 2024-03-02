@@ -1,23 +1,24 @@
-using System;
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.Pool;
 
-public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
+public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodable
 {
     const float HEALTH_DAMAGE_RATIO_WHEN_HAS_SHIELD = 0.1f;
 
     ObjectPool<Alien> alienPool;
     Rigidbody rb;
     new Transform transform;
-    Missile missile;
 
     bool hasShield;
     bool canShoot;
 
+
+    [SerializeField] Ammo ammo;
     [SerializeField] GameObject missilePrefab;
     [SerializeField] Transform missileSpawnPoint;
+    [SerializeField] GameObject explosionParticle;
     [SerializeField] float asteroidDetectionRange;
     [SerializeField] float avoidanceForce;
     [SerializeField] float shootInterval;
@@ -29,7 +30,31 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
     public float Shield { get => shield; set => shield = value; }
 
 
-    // TODO: make pool for missiles!!
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void OnEnable()
+    {
+        hasShield = true;
+        StartCoroutine(MissileLaunch());
+    }
+
+    void FixedUpdate()
+    {
+        gameObject.transform.position.Set(transform.position.x, 0.0f, transform.position.z);
+    }
+
+    public void Initialize(ObjectPool<Alien> pool, float health, float shield, Vector3 position)
+    {
+        this.alienPool = pool;
+        this.health = health;
+        this.shield = shield;
+        transform = GetComponent<Transform>();
+        transform.position = position;
+    }
+
     public void Attack()
     {
         canShoot = true;
@@ -41,17 +66,11 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
         if (canShoot)
         {
             GameObject _missile = Instantiate(missilePrefab, missileSpawnPoint.position, missileSpawnPoint.rotation);
-            missile = _missile.GetComponent<Missile>();
-            missile?.Launch();
+            _missile.GetComponent<Missile>().Ammo = ammo;
             canShoot = false;
         }
 
         StartCoroutine(MissileLaunch());
-    }
-
-    public void Die()
-    {
-        alienPool.Release(this);
     }
 
     public void TakeDamage(float damageTaken)
@@ -68,38 +87,20 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
             Die();
     }
 
-    public void Initialize(ObjectPool<Alien> pool, float health, float shield, Vector3 position)
+
+    public void Die()
     {
-        this.alienPool = pool;
-        this.health = health;
-        this.shield = shield;
-        transform = GetComponent<Transform>();
-        transform.position = position;
+        Explode();
+        alienPool.Release(this);
     }
 
-    void OnEnable()
-    {
-        hasShield = true;
-    }
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        StartCoroutine(MissileLaunch());
-    }
-
-    void FixedUpdate()
-    {
-        gameObject.transform.position.Set(transform.position.x, 0.0f, transform.position.z);
-    }
-
-    internal void StopMovement()
+    public void StopMovement()
     {
         if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.0f)
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
-    internal void AvoidFromAsteroids()
+    public void AvoidFromAsteroids()
     {
         Collider[] asteroids = Physics.OverlapSphere(transform.position, asteroidDetectionRange, LayerMask.GetMask("Asteroid"));
 
@@ -127,12 +128,17 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
         return new Vector3(z, 0.0f, x);
     }
 
+    // TODO: pathfinder algorithm
     internal void MoveTowardsPlayer(Transform player)
     {
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.01f);
 
 
-        // TODO: pathfinder algorithm
     }
 
+    public void Explode()
+    {
+        GameObject _explosionParticle = Instantiate(explosionParticle, gameObject.transform.position, Quaternion.identity);
+        Destroy(_explosionParticle, 2f);
+    }
 }

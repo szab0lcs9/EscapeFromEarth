@@ -5,12 +5,18 @@ using UnityEngine.Pool;
 
 public class Missile : MonoBehaviour
 {
-    [SerializeField] float velocity;
+    public Ammo Ammo { get; set; }
+
+    [SerializeField] GameObject explosionEffect;
+    float maxShootingDistance = 4f;
+
+    void Update()
+    {
+        Launch();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject);
-
         if (collision.gameObject.name.Contains("Missile"))
         {
             collision.collider.isTrigger = true;
@@ -18,6 +24,7 @@ public class Missile : MonoBehaviour
 
         if (!collision.gameObject.name.Contains("Missile"))
         {
+            collision.collider.SendMessage("TakeDamage", Ammo.Damage, SendMessageOptions.DontRequireReceiver);
             Explode();
         }
     }
@@ -31,13 +38,16 @@ public class Missile : MonoBehaviour
 
     }
 
-    public void Launch()
+    void Launch()
     {
-        gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * velocity;
+        gameObject.GetComponent<Rigidbody>().velocity = transform.forward * Ammo.velocity;
+
     }
 
     public void Explode()
     {
+        GameObject _explosionEffect = Instantiate(explosionEffect, gameObject.transform.position, Quaternion.identity);
+        Destroy(_explosionEffect, 1f);
         Destroy(gameObject);
     }
 }
