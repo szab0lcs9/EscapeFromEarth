@@ -9,14 +9,10 @@ public class PlayerShoot : MonoBehaviour
     GameObject player;
     WaitForSeconds shotDuration = new WaitForSeconds(0.1f);
 
-    [SerializeField]
-    private int shootingDamage;
-
-    [SerializeField]
-    private float fireRate = 0.20f;
-
-    [SerializeField]
-    private float shootingRange;
+    [SerializeField] GameObject impactEffect;
+    [SerializeField] private int shootingDamage;
+    [SerializeField] private float fireRate = 0.20f;
+    [SerializeField] private float shootingRange;
 
     private float hitForce = 0.1f;
     private float nextShootIn;
@@ -66,6 +62,8 @@ public class PlayerShoot : MonoBehaviour
             if (hit.rigidbody != null)
                 hit.rigidbody.AddForce(-hit.normal * hitForce);
 
+            GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(impact, 1f);
         }
         else
         {
