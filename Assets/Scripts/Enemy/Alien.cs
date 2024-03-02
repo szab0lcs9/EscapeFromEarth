@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.Pool;
 
 public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
@@ -12,24 +14,39 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
     Missile missile;
 
     bool hasShield;
+    bool canShoot;
 
     [SerializeField] GameObject missilePrefab;
     [SerializeField] Transform missileSpawnPoint;
     [SerializeField] float asteroidDetectionRange;
     [SerializeField] float avoidanceForce;
+    [SerializeField] float shootInterval;
 
     [SerializeField] private float health;
     public float Health { get => health; set => health = value; }
 
     [SerializeField] private float shield;
-
     public float Shield { get => shield; set => shield = value; }
 
+
+    // TODO: make pool for missiles!!
     public void Attack()
     {
-        GameObject _missile = Instantiate(missilePrefab, missileSpawnPoint.position, missileSpawnPoint.rotation);
-        missile = _missile.GetComponent<Missile>();
-        missile.Launch();
+        canShoot = true;
+    }
+
+    IEnumerator MissileLaunch()
+    {
+        yield return new WaitForSeconds(shootInterval);
+        if (canShoot)
+        {
+            GameObject _missile = Instantiate(missilePrefab, missileSpawnPoint.position, missileSpawnPoint.rotation);
+            missile = _missile.GetComponent<Missile>();
+            missile?.Launch();
+            canShoot = false;
+        }
+
+        StartCoroutine(MissileLaunch());
     }
 
     public void Die()
@@ -68,6 +85,7 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(MissileLaunch());
     }
 
     void FixedUpdate()
@@ -92,14 +110,29 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable
             {
                 Vector3 avoidanceDirection = transform.position - asteroid.transform.position;
                 avoidanceVector += avoidanceDirection.normalized / avoidanceDirection.magnitude;
+                avoidanceVector = ChangeVectorDirection(avoidanceVector);
                 avoidanceVector.y = 0;
             }
             rb.AddForce(avoidanceVector * avoidanceForce, ForceMode.Impulse);
+
         }
     }
+
+    private Vector3 ChangeVectorDirection(Vector3 avoidanceVector)
+    {
+        float magnitude = avoidanceVector.magnitude;
+        float x = avoidanceVector.x;
+        float z = avoidanceVector.z;
+
+        return new Vector3(z, 0.0f, x);
+    }
+
     internal void MoveTowardsPlayer(Transform player)
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.001f);
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.01f);
+
+
+        // TODO: pathfinder algorithm
     }
 
 }

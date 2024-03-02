@@ -10,7 +10,25 @@ public class Missile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject);
-        Explode();
+
+        if (collision.gameObject.name.Contains("Missile"))
+        {
+            collision.collider.isTrigger = true;
+        }
+
+        if (!collision.gameObject.name.Contains("Missile"))
+        {
+            Explode();
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name.Contains("Missile"))
+        {
+            collision.collider.isTrigger = false;
+        }
+
     }
 
     public void Launch()
