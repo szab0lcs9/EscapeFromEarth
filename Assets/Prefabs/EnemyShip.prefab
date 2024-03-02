@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 8654119430685396910}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalPosition: {x: 0, y: 0, z: 7}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -135,7 +135,7 @@ MonoBehaviour:
   missileSpawnPoint: {fileID: 3368678915537952751}
   asteroidDetectionRange: 0.5
   avoidanceForce: 0.2
-  missileSpeed: 1
+  shootInterval: 2
   health: 100
   shield: 150
 --- !u!54 &1066441355363188582
@@ -147,7 +147,7 @@ Rigidbody:
   m_GameObject: {fileID: 8816710807524797821}
   serializedVersion: 4
   m_Mass: 1.5
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
