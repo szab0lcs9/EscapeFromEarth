@@ -24,7 +24,7 @@ public class Missile : MonoBehaviour
 
         if (!collision.gameObject.name.Contains("Missile"))
         {
-            collision.collider.SendMessage("TakeDamage", Ammo.Damage, SendMessageOptions.DontRequireReceiver);
+            collision.gameObject.SendMessage("TakeDamage", Ammo.Damage, SendMessageOptions.DontRequireReceiver);
             Explode();
         }
     }

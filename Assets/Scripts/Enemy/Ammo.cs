@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Ammo : ScriptableObject
 {
-    private const float MASS_MULTIPLIER = 0.4f;
+    const float MASS_MULTIPLIER = 4f;
 
     [Range(1, 10)]
     public float velocity = 1f;

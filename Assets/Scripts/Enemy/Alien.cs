@@ -6,6 +6,7 @@ using UnityEngine.Pool;
 public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodable
 {
     const float HEALTH_DAMAGE_RATIO_WHEN_HAS_SHIELD = 0.1f;
+    const float SHIELD_DAMAGE_MULTIPLIER = 0.5f;
 
     ObjectPool<Alien> alienPool;
     Rigidbody rb;
@@ -76,10 +77,13 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodabl
     public void TakeDamage(float damageTaken)
     {
         if (hasShield)
-            shield -= damageTaken * 0.5f;
+            shield -= damageTaken * SHIELD_DAMAGE_MULTIPLIER;
 
-        if (shield < 0)
+        if (shield <= 0f)
+        {
             hasShield = false;
+            shield = 0;
+        }
 
         health = hasShield ? health - (damageTaken * HEALTH_DAMAGE_RATIO_WHEN_HAS_SHIELD) : health - damageTaken;
 

@@ -717,6 +717,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 200
   shield: 100
+--- !u!64 &1196517002
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196516988}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &1252078966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1101,6 +1123,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5948441863133394114, guid: c21da47a19cd7254ea023c0733d64ce3, type: 3}
       insertIndex: 2
       addedObject: {fileID: 1196516995}
+    - targetCorrespondingSourceObject: {fileID: 5948441863133394114, guid: c21da47a19cd7254ea023c0733d64ce3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1196517002}
   m_SourcePrefab: {fileID: 100100000, guid: c21da47a19cd7254ea023c0733d64ce3, type: 3}
 --- !u!1001 &5365073665191933492
 PrefabInstance:
