@@ -16,11 +16,11 @@ namespace Assets.Scripts.Enemy
         Vector3 randomPosition;
         float releaseRadius = 40f;
         float maxHealth = 100f;
-        int maxNumOfAsteroids = 20;
         int randomPrefab;
 
         [SerializeField] AsteroidFactory asteroidFactory;
         [SerializeField] GameObject[] asteroidPrefabs;
+        [SerializeField] int maxNumOfAsteroids = 20;
         [SerializeField] float spawnRadius = 40f;
         [SerializeField] float spawnInterval = 2f;
 
@@ -93,7 +93,6 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        // TODO: áthelyezni az Asteroid osztályba
         private void ReleaseAsteroidWhenTooFarFromPlayer()
         {
             for (int i = 0; i < activeAsteroids.Count; i++)
@@ -104,15 +103,7 @@ namespace Assets.Scripts.Enemy
 
                 if (sqrLength > releaseRadius * releaseRadius)
                 {
-                    try
-                    {
-                        activeAsteroids.RemoveAt(i);
-                        asteroidPool.Release(_asteroid);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError(ex.Message);
-                    }
+                    activeAsteroids.RemoveAt(i);
                 }
             }
         }

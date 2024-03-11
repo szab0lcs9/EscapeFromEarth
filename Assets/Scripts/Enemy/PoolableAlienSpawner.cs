@@ -11,18 +11,19 @@ namespace Assets.Scripts.Enemy
         ObjectPool<Alien> alienPool;
         List<Alien> activeAliens = new List<Alien>();
         Alien alien;
+        Transform player;
         Vector3 playerPosition;
         Vector3 previousPlayerPosition;
         Vector3 alienSpawnPosition;
         float maxShield = 100f;
         float maxHealth = 100f;
-        int maxNumOfAliens = 1;
 
         [SerializeField] AlienFactory alienFactory;
         [SerializeField] GameObject[] alienPrefabs;
+        [SerializeField] int maxNumOfAliens = 1;
         [SerializeField] float spawnInterval = 2f;
 
-
+        RandomRotator randomRotator;
 
         void Awake()
         {
@@ -39,7 +40,8 @@ namespace Assets.Scripts.Enemy
             alienFactory = new AlienFactory();
             alienStateManager = gameObject.AddComponent<AlienStateManager>();
 
-            playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            playerPosition = player.position;
             previousPlayerPosition = playerPosition;
 
             StartCoroutine(SpawnAliens());
@@ -47,7 +49,7 @@ namespace Assets.Scripts.Enemy
 
         void Update()
         {
-            playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            playerPosition = player.position;
         }
 
         IEnumerator SpawnAliens()
@@ -57,12 +59,12 @@ namespace Assets.Scripts.Enemy
                 if (alienPool.CountActive < maxNumOfAliens)
                 {
                     Vector3 playerMovementDirection = playerPosition - previousPlayerPosition;
-                    Vector3 initialPosition = playerPosition + playerMovementDirection.normalized;
+                    alienSpawnPosition = playerPosition + playerMovementDirection.normalized * Random.Range(5f, 20f);
 
-                    if (initialPosition != playerPosition)
+                    if (alienSpawnPosition != playerPosition)
                     {
                         alien = alienPool.Get();
-                        alien.Initialize(alienPool, maxHealth, maxShield, initialPosition);
+                        alien.Initialize(alienPool, maxHealth, maxShield, alienSpawnPosition, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 
                         alienStateManager.Initialize(alien);
 
