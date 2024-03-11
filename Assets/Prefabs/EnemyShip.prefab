@@ -42,9 +42,12 @@ GameObject:
   - component: {fileID: 781923159820757177}
   - component: {fileID: 3837841739367539818}
   - component: {fileID: 3359709258333823240}
-  - component: {fileID: 2803627595442062789}
   - component: {fileID: 1066441355363188582}
   - component: {fileID: 7642440562770539705}
+  - component: {fileID: 3762048445452517741}
+  - component: {fileID: 2803627595442062789}
+  - component: {fileID: 8507604635943895319}
+  - component: {fileID: 2750917629544234760}
   m_Layer: 0
   m_Name: EnemyShip
   m_TagString: Enemy
@@ -119,27 +122,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2803627595442062789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8816710807524797821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6d8d15ac3cdcb04ab3a17223579151e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ammo: {fileID: 11400000, guid: 33d496fde370cef4a9d4a157caa08b66, type: 2}
-  missilePrefab: {fileID: 1930268331571992696, guid: bd901f2fb98ea3747b3ecf5568718c0f, type: 3}
-  missileSpawnPoint: {fileID: 3368678915537952751}
-  explosionParticle: {fileID: 140434104785645650, guid: 1ab3eeee6ce75ef4a8343ee06fbb26c6, type: 3}
-  asteroidDetectionRange: 0.5
-  avoidanceForce: 0.02
-  shootInterval: 2
-  health: 100
-  shield: 150
 --- !u!54 &1066441355363188582
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -189,3 +171,61 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 0ce846f59a0a94140b86033f0bde21b2, type: 3}
+--- !u!114 &3762048445452517741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816710807524797821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f075967022293114ebd4372bc63c7835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2803627595442062789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816710807524797821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6d8d15ac3cdcb04ab3a17223579151e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammo: {fileID: 11400000, guid: 33d496fde370cef4a9d4a157caa08b66, type: 2}
+  missilePrefab: {fileID: 1930268331571992696, guid: bd901f2fb98ea3747b3ecf5568718c0f, type: 3}
+  missileSpawnPoint: {fileID: 3368678915537952751}
+  explosionParticle: {fileID: 140434104785645650, guid: 1ab3eeee6ce75ef4a8343ee06fbb26c6, type: 3}
+  shootInterval: 2
+  health: 100
+  shield: 150
+--- !u!114 &8507604635943895319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816710807524797821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d672a4f927a80442ad42719c63c8045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetNodeTreshold: 1
+--- !u!114 &2750917629544234760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816710807524797821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0b514860b5db242b4aef337da98c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidDetectionRange: 0.5
+  avoidanceForce: 0.2
