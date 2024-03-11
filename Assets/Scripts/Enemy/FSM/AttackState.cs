@@ -24,8 +24,8 @@ public class AttackState : IState
 
     public void Update()
     {
-        alien.transform.LookAt(player.transform);
-        alien.AvoidFromAsteroids();
+        alien.transform.LookAt(player.transform);   // TODO: szebben megoldani a mozgást!!
+        alien.GetComponent<EnemyMovement>().AvoidFromAsteroids();
         alien.Attack();
     }
 }

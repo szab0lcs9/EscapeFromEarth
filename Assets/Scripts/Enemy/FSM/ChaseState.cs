@@ -5,8 +5,7 @@ using UnityEngine;
 public class ChaseState : IState
 {
     Alien alien;
-    GameObject player;
-    Rigidbody rb;
+    Transform player;
 
     public ChaseState(Alien alien)
     {
@@ -15,19 +14,18 @@ public class ChaseState : IState
 
     public void Enter()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        rb = alien.GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void Exit()
     {
-        alien.StopMovement();
+        alien.GetComponent<EnemyMovement>().StopMovement();
     }
 
     public void Update()
     {
-        alien.transform.LookAt(player.transform);
-        alien.AvoidFromAsteroids();
-        alien.MoveTowardsPlayer(player.transform);
+        alien.transform.LookAt(player.transform); // TODO: szebben megoldani a mozgást!!
+        alien.GetComponent<EnemyMovement>().AvoidFromAsteroids();
+        alien.GetComponent<EnemyMovement>().MoveTowardsPlayer(player);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -9,19 +10,14 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodabl
     const float SHIELD_DAMAGE_MULTIPLIER = 0.5f;
 
     ObjectPool<Alien> alienPool;
-    Rigidbody rb;
-    new Transform transform;
 
     bool hasShield;
     bool canShoot;
-
 
     [SerializeField] Ammo ammo;
     [SerializeField] GameObject missilePrefab;
     [SerializeField] Transform missileSpawnPoint;
     [SerializeField] GameObject explosionParticle;
-    [SerializeField] float asteroidDetectionRange;
-    [SerializeField] float avoidanceForce;
     [SerializeField] float shootInterval;
 
     [SerializeField] private float health;
@@ -33,7 +29,7 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodabl
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+
     }
 
     void OnEnable()
@@ -42,18 +38,14 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodabl
         StartCoroutine(MissileLaunch());
     }
 
-    void FixedUpdate()
-    {
-        gameObject.transform.position.Set(transform.position.x, 0.0f, transform.position.z);
-    }
 
-    public void Initialize(ObjectPool<Alien> pool, float health, float shield, Vector3 position)
+    public void Initialize(ObjectPool<Alien> pool, float health, float shield, Vector3 position, Quaternion rotation)
     {
         this.alienPool = pool;
         this.health = health;
         this.shield = shield;
-        transform = GetComponent<Transform>();
         transform.position = position;
+        transform.rotation = rotation;
     }
 
     public void Attack()
@@ -98,47 +90,8 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodabl
         alienPool.Release(this);
     }
 
-    public void StopMovement()
-    {
-        if (gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.0f)
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    }
-
-    public void AvoidFromAsteroids()
-    {
-        Collider[] asteroids = Physics.OverlapSphere(transform.position, asteroidDetectionRange, LayerMask.GetMask("Asteroid"));
-
-        if (asteroids.Length > 0)
-        {
-            Vector3 avoidanceVector = Vector3.zero;
-            foreach (Collider asteroid in asteroids)
-            {
-                Vector3 avoidanceDirection = transform.position - asteroid.transform.position;
-                avoidanceVector += avoidanceDirection.normalized / avoidanceDirection.magnitude;
-                avoidanceVector = ChangeVectorDirection(avoidanceVector);
-                avoidanceVector.y = 0;
-            }
-            rb.AddForce(avoidanceVector * avoidanceForce, ForceMode.Impulse);
-
-        }
-    }
-
-    private Vector3 ChangeVectorDirection(Vector3 avoidanceVector)
-    {
-        float magnitude = avoidanceVector.magnitude;
-        float x = avoidanceVector.x;
-        float z = avoidanceVector.z;
-
-        return new Vector3(z, 0.0f, x);
-    }
-
-    // TODO: pathfinder algorithm
-    internal void MoveTowardsPlayer(Transform player)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.01f);
 
 
-    }
 
     public void Explode()
     {

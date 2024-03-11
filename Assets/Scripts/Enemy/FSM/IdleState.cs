@@ -13,7 +13,7 @@ public class IdleState : IState
 
     public void Enter()
     {
-        alien.StopMovement();
+        alien.GetComponent<EnemyMovement>().StopMovement();
     }
 
     public void Exit()
@@ -23,6 +23,6 @@ public class IdleState : IState
 
     public void Update()
     {
-        alien.AvoidFromAsteroids();
+        alien.GetComponent<EnemyMovement>().AvoidFromAsteroids();
     }
 }
