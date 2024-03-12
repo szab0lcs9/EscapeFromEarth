@@ -23,6 +23,7 @@ namespace Assets.Scripts.Enemy
         [SerializeField] int maxNumOfAsteroids = 20;
         [SerializeField] float spawnRadius = 40f;
         [SerializeField] float spawnInterval = 2f;
+        [SerializeField] Vector3 ignoreSpawnRadius = new Vector3(5f, 0f, 5f);
 
 
         void Awake()
@@ -60,7 +61,7 @@ namespace Assets.Scripts.Enemy
                 if (asteroidPool.CountActive < maxNumOfAsteroids)
                 {
 
-                    randomPosition = Random.insideUnitCircle * spawnRadius;
+                    randomPosition = ignoreSpawnRadius + Random.insideUnitSphere * spawnRadius;
                     randomPosition.y = 0;
 
                     asteroid = asteroidPool.Get();
