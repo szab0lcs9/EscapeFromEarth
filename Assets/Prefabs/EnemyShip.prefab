@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetNodeTreshold: 1
+  movingSpeed: 2
 --- !u!114 &2750917629544234760
 MonoBehaviour:
   m_ObjectHideFlags: 0

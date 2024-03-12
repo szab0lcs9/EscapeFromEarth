@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6654171044305911342}
   - component: {fileID: 4116958426301620688}
   - component: {fileID: 7395750817358741461}
+  - component: {fileID: 8738276760544993244}
   m_Layer: 0
   m_Name: Space Station
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.3821309, y: 0.27006343, z: 0.72171974, w: 0.51006114}
   m_LocalPosition: {x: 1629.5, y: 0, z: 1.1}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2053999176245865471}
@@ -156,6 +157,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialVelocity: 0.1
+--- !u!114 &8738276760544993244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539554022488172548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f075967022293114ebd4372bc63c7835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1745092229885712285
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,13 +302,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918213797371260571}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.19851261, w: 0.9800983}
   m_LocalPosition: {x: 0.029999822, y: 0.24002646, z: 13.063719}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4143457778504852791}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -22.9}
 --- !u!33 &579850233563515099
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1019,13 +1032,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3472952217831550327}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.19851261, w: 0.9800983}
   m_LocalPosition: {x: 0.029999822, y: 0.24000739, z: 18.575325}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4143457778504852791}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -22.9}
 --- !u!33 &2654150595148469407
 MeshFilter:
   m_ObjectHideFlags: 0
