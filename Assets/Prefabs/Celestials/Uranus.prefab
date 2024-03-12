@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2373271092942655340}
   - component: {fileID: 4023157199336357607}
   - component: {fileID: 7000652420864017582}
+  - component: {fileID: 3524805771431616279}
   m_Layer: 0
   m_Name: Uranus
   m_TagString: CelestialBody
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationRatio: -0.72
+--- !u!114 &3524805771431616279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726234129817174653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc038e42a40a99c42bfd972167d1c80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

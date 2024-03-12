@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4089891291703814623}
   - component: {fileID: 6260402899664773643}
   - component: {fileID: 36267164115451861}
+  - component: {fileID: 7854640604510877876}
   m_Layer: 0
   m_Name: Jupiter
   m_TagString: CelestialBody
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationRatio: 0.42
+--- !u!114 &7854640604510877876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568809993210917548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc038e42a40a99c42bfd972167d1c80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

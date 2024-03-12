@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8821490462701948032}
   - component: {fileID: 4479475920780099070}
   - component: {fileID: 5017667915557666522}
+  - component: {fileID: 1502624241989793828}
   m_Layer: 0
   m_Name: Mars
   m_TagString: CelestialBody
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationRatio: 1.025
+--- !u!114 &1502624241989793828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321831553301201382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc038e42a40a99c42bfd972167d1c80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

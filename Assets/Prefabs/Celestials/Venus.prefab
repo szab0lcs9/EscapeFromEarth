@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1214330161071511548}
   - component: {fileID: 3810983689807445049}
   - component: {fileID: 3605936870869755888}
+  - component: {fileID: 2117131229010793955}
   m_Layer: 0
   m_Name: Venus
   m_TagString: CelestialBody
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationRatio: -243
+--- !u!114 &2117131229010793955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122399778495627668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc038e42a40a99c42bfd972167d1c80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

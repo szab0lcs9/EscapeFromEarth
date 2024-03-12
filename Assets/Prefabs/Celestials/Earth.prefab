@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2765863629679846122}
   - component: {fileID: 5239431477639502688}
   - component: {fileID: 7311589449461067691}
+  - component: {fileID: 6183873212044520347}
   m_Layer: 0
   m_Name: Earth
   m_TagString: CelestialBody
@@ -53,7 +54,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1886901829129042149}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationRatio: 1
+--- !u!114 &6183873212044520347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886901829129042149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc038e42a40a99c42bfd972167d1c80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
