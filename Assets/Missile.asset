@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ccbae58236e1049bb57d8bd4c969d4, type: 3}
   m_Name: Missile
   m_EditorClassIdentifier: 
-  velocity: 1
-  mass: 0.01
+  velocity: 1.14
+  mass: 2.2
