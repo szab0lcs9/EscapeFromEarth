@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6124087097054415192}
   - component: {fileID: 4666147358534509516}
   - component: {fileID: 7121673060769851233}
-  - component: {fileID: 7696594612873338707}
   m_Layer: 0
   m_Name: Iron
   m_TagString: Untagged
@@ -106,15 +105,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7696594612873338707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322642633276678331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 842e0aefbf9f50c40b02a0cf01d27e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

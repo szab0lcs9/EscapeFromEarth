@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IUnitStats
+public interface ICollectible
 {
-
+    string Name { get; }
 }
