@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class AStarPathfinding : MonoBehaviour
@@ -9,6 +10,7 @@ public class AStarPathfinding : MonoBehaviour
     List<PathNode> closedPathNodes = new List<PathNode>();
 
     [SerializeField] float targetNodeTreshold;
+    [SerializeField] float movingSpeed;
 
     internal void MoveAlongPath(List<Vector3> path)
     {
@@ -24,7 +26,7 @@ public class AStarPathfinding : MonoBehaviour
         {
             while (Vector3.Distance(transform.position, node) > 0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, node, 0.01f);
+                transform.position = Vector3.MoveTowards(transform.position, node, 0.01f * movingSpeed);
                 yield return null;
             }
         }
