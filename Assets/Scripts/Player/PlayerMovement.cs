@@ -1,4 +1,5 @@
 using Assets.Scripts.Enemy;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,17 +8,10 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
 
-    [SerializeField]
-    private float movementSpeed;
-
-    [SerializeField]
-    private float rotationSpeed;
-
-    [SerializeField]
-    private float strafeSpeed;
-
-    [SerializeField]
-    ParticleSystem exhaustFumes;
+    [SerializeField] ParticleSystem exhaustFumes;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float rotationSpeed;
+    [SerializeField] float strafeSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -83,5 +77,12 @@ public class PlayerMovement : MonoBehaviour
             exhaustFumes.Play();
         }
         else exhaustFumes.Stop();
+    }
+
+    internal void StopMovement()
+    {
+        Vector3 actualVelocity = rb.velocity;
+        rb.AddForce(-actualVelocity);
+        rb.velocity = Vector3.zero;
     }
 }

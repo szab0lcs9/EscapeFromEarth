@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IDamageable, IExplodable
 {
     const float HEALTH_DAMAGE_RATIO_WHEN_HAS_SHIELD = 0.1f;
     const float SHIELD_DAMAGE_MULTIPLIER = 0.5f;
-    const float REFILL_WAIT_TIME = 10f;
+    const float REFILL_WAIT_TIME = 60f;
+
 
     float initialHealth;
     float initialShield;
     bool hasShield;
+    bool isUnderAttack = false;
+
+    [SerializeField] GameObject explosionParticle;
 
     [SerializeField] private float health;
     public float Health { get => health; set => health = value; }
@@ -31,11 +35,15 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Die()
     {
+        Explode();
+        GetComponent<PlayerMovement>().StopMovement();
         Debug.Log("You Died!");
     }
 
     public void TakeDamage(float damageTaken)
     {
+        isUnderAttack = true;
+
         if (hasShield)
             shield -= damageTaken * SHIELD_DAMAGE_MULTIPLIER;
 
@@ -52,18 +60,24 @@ public class Player : MonoBehaviour, IDamageable
             Die();
             health = 0;
         }
+
+        UpdateHealthAndShieldBar();
+
+        Invoke(nameof(ResetUnderAttackFlag), REFILL_WAIT_TIME);
     }
 
     IEnumerator RefillHealth()
     {
         yield return new WaitForSeconds(REFILL_WAIT_TIME);
 
-        for (float actualHealth = health; actualHealth <= initialHealth; actualHealth += 0.1f)
+        for (float actualHealth = health; !isUnderAttack && actualHealth <= initialHealth; actualHealth += 0.1f)
         {
             health = actualHealth;
             yield return new WaitForSeconds(Time.deltaTime);
         }
         health = initialHealth;
+
+        UpdateHealthAndShieldBar();
 
         StartCoroutine(RefillHealth());
     }
@@ -71,14 +85,33 @@ public class Player : MonoBehaviour, IDamageable
     {
         yield return new WaitForSeconds(REFILL_WAIT_TIME);
 
-        for (float actualShield = shield; actualShield <= initialShield; actualShield += 0.01f)
+        for (float actualShield = shield; !isUnderAttack && actualShield <= initialShield; actualShield += 0.01f)
         {
             shield = actualShield;
             yield return new WaitForSeconds(Time.deltaTime);
         }
         shield = initialShield;
 
+        UpdateHealthAndShieldBar();
+
         StartCoroutine(RefillShield());
+    }
+
+    public void Explode()
+    {
+        GameObject _explosionParticle = Instantiate(explosionParticle, gameObject.transform.position, Quaternion.identity);
+        Destroy(_explosionParticle, 2f);
+    }
+
+    void UpdateHealthAndShieldBar()
+    {
+        FindObjectOfType<HealthBar>().UpdateHealth(health, initialHealth);
+        FindObjectOfType<ShieldBar>().UpdateShield(shield, initialShield);
+    }
+
+    void ResetUnderAttackFlag()
+    {
+        isUnderAttack = false;
     }
 
 }
