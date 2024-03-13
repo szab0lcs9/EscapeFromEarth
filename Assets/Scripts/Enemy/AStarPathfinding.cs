@@ -14,7 +14,7 @@ public class AStarPathfinding : MonoBehaviour
 
     internal void MoveAlongPath(List<Vector3> path)
     {
-        if (path.Count > 0)
+        if (path.Count > 0 && gameObject.activeSelf)
         {
             StartCoroutine(MoveCoroutine(path));
         }
