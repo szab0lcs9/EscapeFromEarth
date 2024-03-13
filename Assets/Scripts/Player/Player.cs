@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IDamageable, IExplodable
 {
@@ -8,6 +10,11 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
     const float SHIELD_DAMAGE_MULTIPLIER = 0.5f;
     const float REFILL_WAIT_TIME = 60f;
 
+    Canvas canvas;
+    GameObject healthBar;
+    GameObject shieldBar;
+    Vector3 barPositionAdjust = new Vector3(0f, 10f, 0f);
+    Vector3 bottomPositionAdjust = new Vector3(0f, 20f, 0f);
 
     float initialHealth;
     float initialShield;
@@ -15,6 +22,8 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
     bool isUnderAttack = false;
 
     [SerializeField] GameObject explosionParticle;
+    [SerializeField] GameObject healthBarPrefab;
+    [SerializeField] GameObject shieldBarPrefab;
 
     [SerializeField] private float health;
     public float Health { get => health; set => health = value; }
@@ -25,12 +34,31 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
 
     void Start()
     {
+        canvas = FindObjectOfType<Canvas>();
+
+        healthBar = Instantiate(healthBarPrefab, canvas.transform);
+        shieldBar = Instantiate(shieldBarPrefab, canvas.transform);
+
         hasShield = true;
         initialHealth = health;
         initialShield = shield;
 
         StartCoroutine(RefillHealth());
         StartCoroutine(RefillShield());
+    }
+
+    void Update()
+    {
+        PositionHealthAndShieldBar();
+    }
+
+    private void PositionHealthAndShieldBar()
+    {
+        Vector3 canvasPosition = canvas.transform.position;
+        Vector3 bottomPosition = new Vector3(canvasPosition.x, canvasPosition.y - canvasPosition.y, canvasPosition.z);
+
+        healthBar.GetComponent<RectTransform>().position = bottomPosition + bottomPositionAdjust + barPositionAdjust;
+        shieldBar.GetComponent<RectTransform>().position = bottomPosition + bottomPositionAdjust + barPositionAdjust * 2;
     }
 
     public void Die()
@@ -105,8 +133,8 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
 
     void UpdateHealthAndShieldBar()
     {
-        FindObjectOfType<HealthBar>().UpdateHealth(health, initialHealth);
-        FindObjectOfType<ShieldBar>().UpdateShield(shield, initialShield);
+        healthBar.GetComponent<HealthBar>().UpdateHealth(health, initialHealth);
+        shieldBar.GetComponent<ShieldBar>().UpdateShield(shield, initialShield);
     }
 
     void ResetUnderAttackFlag()

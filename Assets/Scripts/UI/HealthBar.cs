@@ -11,7 +11,12 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-        healthBarImage = GetComponentInChildren<Image>();
+        healthBarImage = GetComponent<Image>();
+    }
+
+    public void Initialize(Canvas canvas, Camera camera)
+    {
+        healthBarImage.transform.SetParent(canvas.transform);
     }
 
     public void UpdateHealth(float currentHealth, float maxHealth)

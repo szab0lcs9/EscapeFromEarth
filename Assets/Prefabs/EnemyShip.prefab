@@ -196,9 +196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 11400000, guid: 33d496fde370cef4a9d4a157caa08b66, type: 2}
+  healthBarPrefab: {fileID: 758622687264620763, guid: 746ff248116b9344694610ca2a31afb9, type: 3}
+  shieldBarPrefab: {fileID: 758622687264620763, guid: 4ab4c950945a48545b1be4519a54a830, type: 3}
+  explosionParticle: {fileID: 140434104785645650, guid: 1ab3eeee6ce75ef4a8343ee06fbb26c6, type: 3}
   missilePrefab: {fileID: 1930268331571992696, guid: bd901f2fb98ea3747b3ecf5568718c0f, type: 3}
   missileSpawnPoint: {fileID: 3368678915537952751}
-  explosionParticle: {fileID: 140434104785645650, guid: 1ab3eeee6ce75ef4a8343ee06fbb26c6, type: 3}
   shootInterval: 2
   health: 100
   shield: 150
