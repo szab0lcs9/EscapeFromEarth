@@ -28,7 +28,8 @@ public class PlayerData
         {
             player.transform.rotation.x,
             player.transform.rotation.y,
-            player.transform.rotation.z
+            player.transform.rotation.z,
+            player.transform.rotation.w
         };
 
         this.numberOfGold = inventory.NumberOfGold;

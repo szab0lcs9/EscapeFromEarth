@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class LoadEnvironmentData : MonoBehaviour
+public static class LoadEnvironmentData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    readonly static string SAVE_FILE_PATH = Application.persistentDataPath + "/environment.dt";
 
-    // Update is called once per frame
-    void Update()
+    public static EnvironmentData Load()
     {
-        
+        if (File.Exists(SAVE_FILE_PATH))
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream fileStream = new FileStream(SAVE_FILE_PATH, FileMode.Open);
+
+            EnvironmentData environmentData = (EnvironmentData)binaryFormatter.Deserialize(fileStream);
+            fileStream.Close();
+
+            return environmentData;
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + SAVE_FILE_PATH);
+            return null;
+        }
     }
 }

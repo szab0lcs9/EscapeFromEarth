@@ -29,6 +29,7 @@ public class EnemyData
             alien.transform.rotation.x,
             alien.transform.rotation.y,
             alien.transform.rotation.z,
+            alien.transform.rotation.w
         };
     }
 }

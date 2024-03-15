@@ -30,7 +30,8 @@ public class EnvironmentData
             {
                 celestialBodies[i].transform.rotation.x,
                 celestialBodies[i].transform.rotation.y,
-                celestialBodies[i].transform.rotation.z
+                celestialBodies[i].transform.rotation.z,
+                celestialBodies[i].transform.rotation.w
             };
         }
 
@@ -45,7 +46,8 @@ public class EnvironmentData
         {
             spaceStation.transform.rotation.x,
             spaceStation.transform.rotation.y,
-            spaceStation.transform.rotation.z
+            spaceStation.transform.rotation.z,
+            spaceStation.transform.rotation.w
         };
 
         this.spaceStationVelocity = new float[]

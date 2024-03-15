@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public int NumberOfGold { get; private set; }
-    public int NumberOfSilver { get; private set; }
+    public int NumberOfGold { get; set; }
+    public int NumberOfSilver { get; set; }
 
     public void Collected(string name)
     {
