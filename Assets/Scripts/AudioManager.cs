@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,10 +47,19 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenuScene")
-            PlayMusic("mainMenuMusic", looping: true);
-        if (SceneManager.GetActiveScene().name == "MainGameScene")
-            PlayMusic("mainGameMusic", looping: true);
+        PlayMusicByScene(SceneManager.GetActiveScene());
+    }
+
+    private void PlayMusicByScene(Scene scene)
+    {
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        PlayMusic(scene.name + "Music", looping: true);
+    }
+
+    private void SceneManager_activeSceneChanged(Scene previousScene, Scene newScene)
+    {
+        musicSource.Stop();
+        PlayMusicByScene(newScene);
     }
 
     public void PlayMusic(string name, bool looping)
@@ -65,13 +75,15 @@ public class AudioManager : MonoBehaviour
         else Debug.LogError("Sound not found!");
     }
 
-    public void PlaySFX(string name)
+    public void PlaySFX(string name, [Optional] bool looping)
     {
         Sound sound = Array.Find(sfxSounds, s => s.name == name);
 
         if (sound != null)
         {
-            sfxSource.PlayOneShot(sound.clip);
+            sfxSource.clip = sound.clip;
+            sfxSource.loop = looping;
+            sfxSource.Play();
         }
         else Debug.LogError("Sound not found!");
     }
