@@ -10,20 +10,12 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
     const float SHIELD_DAMAGE_MULTIPLIER = 0.5f;
     const float REFILL_WAIT_TIME = 60f;
 
-    Canvas canvas;
-    GameObject healthBar;
-    GameObject shieldBar;
-    Vector3 barPositionAdjust = new Vector3(0f, 10f, 0f);
-    Vector3 bottomPositionAdjust = new Vector3(0f, 20f, 0f);
-
     float initialHealth;
     float initialShield;
     bool hasShield;
     bool isUnderAttack = false;
 
     [SerializeField] GameObject explosionParticle;
-    [SerializeField] GameObject healthBarPrefab;
-    [SerializeField] GameObject shieldBarPrefab;
 
     [SerializeField] private float health;
     public float Health { get => health; set => health = value; }
@@ -34,11 +26,6 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
 
     void Start()
     {
-        canvas = FindObjectOfType<Canvas>();
-
-        healthBar = Instantiate(healthBarPrefab, canvas.transform);
-        shieldBar = Instantiate(shieldBarPrefab, canvas.transform);
-
         hasShield = true;
         initialHealth = health;
         initialShield = shield;
@@ -49,16 +36,7 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
 
     void Update()
     {
-        PositionHealthAndShieldBar();
-    }
 
-    private void PositionHealthAndShieldBar()
-    {
-        Vector3 canvasPosition = canvas.transform.position;
-        Vector3 bottomPosition = new Vector3(canvasPosition.x, canvasPosition.y - canvasPosition.y, canvasPosition.z);
-
-        healthBar.GetComponent<RectTransform>().position = bottomPosition + bottomPositionAdjust + barPositionAdjust;
-        shieldBar.GetComponent<RectTransform>().position = bottomPosition + bottomPositionAdjust + barPositionAdjust * 2;
     }
 
     public void Die()
@@ -128,13 +106,16 @@ public class Player : MonoBehaviour, IDamageable, IExplodable
     public void Explode()
     {
         GameObject _explosionParticle = Instantiate(explosionParticle, gameObject.transform.position, Quaternion.identity);
+
+        AudioManager.Instance.PlaySFX("Explode");
+
         Destroy(_explosionParticle, 2f);
     }
 
     void UpdateHealthAndShieldBar()
     {
-        healthBar.GetComponent<HealthBar>().UpdateHealth(health, initialHealth);
-        shieldBar.GetComponent<ShieldBar>().UpdateShield(shield, initialShield);
+        GetComponent<PlayerUI>().healthBar.GetComponent<HealthBar>().UpdateHealth(health, initialHealth);
+        GetComponent<PlayerUI>().shieldBar.GetComponent<ShieldBar>().UpdateShield(shield, initialShield);
     }
 
     void ResetUnderAttackFlag()

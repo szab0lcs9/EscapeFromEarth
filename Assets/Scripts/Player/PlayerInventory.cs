@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public UnityEvent<PlayerInventory> OnCollectedAnyGems;
     public int NumberOfGold { get; set; }
     public int NumberOfSilver { get; set; }
 
     public void Collected(string name)
     {
-        switch (name.ToLower())
+        name = name.Remove(name.Length - 7).ToLower();
+        Debug.Log(name);
+        switch (name)
         {
             case "gold":
                 NumberOfGold++;
@@ -22,6 +26,6 @@ public class PlayerInventory : MonoBehaviour
             default:
                 break;
         }
+        OnCollectedAnyGems.Invoke(this);
     }
-
 }

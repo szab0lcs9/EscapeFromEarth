@@ -69,6 +69,8 @@ public class PlayerShoot : MonoBehaviour
         {
             laser.SetPosition(1, playerPosition + (player.transform.forward * shootingRange));
         }
+
+        AudioManager.Instance.PlaySFX("LaserShoot");
     }
 
     private IEnumerator LaserEffect()

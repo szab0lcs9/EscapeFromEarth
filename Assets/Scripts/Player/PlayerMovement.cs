@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
 
-    [SerializeField] ParticleSystem exhaustFumes;
+    [SerializeField] ParticleSystem[] engineExhausts;
     [SerializeField] float movementSpeed;
     [SerializeField] float rotationSpeed;
     [SerializeField] float strafeSpeed;
@@ -73,10 +73,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (verticalInput != 0)
         {
-            exhaustFumes.Emit(1);
-            exhaustFumes.Play();
+            for (int i = 0; i < engineExhausts.Length; i++)
+            {
+                engineExhausts[i].Emit(1);
+                engineExhausts[i].Play();
+            }
         }
-        else exhaustFumes.Stop();
+        else
+        {
+            for (int i = 0; i < engineExhausts.Length; i++)
+            {
+                engineExhausts[i].Stop();
+            }
+        }
     }
 
     internal void StopMovement()
