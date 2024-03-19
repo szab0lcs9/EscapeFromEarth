@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d26146076d42c41b59d30626989d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticle: {fileID: 5417292822546745517, guid: 45069c7199ba50b4bae188510cb585d6, type: 3}
+  explosionParticle: {fileID: 3590349073673351403, guid: 1e9b8292a7589e342abda0b1f8c3e7a9, type: 3}
   collectiblePrefab: {fileID: 6388194188757879084, guid: 723a9019c926ec348a7a6d26658b35a1, type: 3}
   intitalVelocity: 0.74
   health: 100
