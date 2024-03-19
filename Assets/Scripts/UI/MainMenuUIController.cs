@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class MainMenuUIController : MonoBehaviour
 {
+    #region Sound Control
+
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider soundsVolumeSlider;
 
@@ -19,5 +21,5 @@ public class UIController : MonoBehaviour
 
     public void PlaySFXSound(string name) => AudioManager.Instance.PlaySFX(name);
 
-    
+    #endregion
 }
