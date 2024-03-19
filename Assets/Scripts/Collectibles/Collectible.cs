@@ -11,6 +11,9 @@ public class Collectible : MonoBehaviour, ICollectible
         if (other.TryGetComponent<PlayerInventory>(out var inventory))
         {
             inventory.Collected(Name);
+
+            AudioManager.Instance.PlaySFX("Collected");
+
             gameObject.SetActive(false);
         }
     }

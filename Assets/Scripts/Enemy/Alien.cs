@@ -133,6 +133,9 @@ public class Alien : MonoBehaviour, IEnemy, IDamageable, IAttackable, IExplodabl
     public void Explode()
     {
         GameObject _explosionParticle = Instantiate(explosionParticle, gameObject.transform.position, Quaternion.identity);
+
+        AudioManager.Instance.PlaySFX("Explode");
+
         Destroy(_explosionParticle, 2f);
     }
 

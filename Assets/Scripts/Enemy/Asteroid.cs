@@ -33,6 +33,7 @@ public class Asteroid : MonoBehaviour, IEnemy, IDamageable, IExplodable
 
     public void Die()
     {
+        Explode();
         collectibleFactory.SpawnCollectible(collectiblePrefab, transform.position);
         pool.Release(this);
     }
@@ -54,6 +55,9 @@ public class Asteroid : MonoBehaviour, IEnemy, IDamageable, IExplodable
     public void Explode()
     {
         GameObject _explosionParticle = Instantiate(explosionParticle, gameObject.transform.position, Quaternion.identity);
+
+        AudioManager.Instance.PlaySFX("Explode");
+
         Destroy(_explosionParticle, 2f);
     }
 }

@@ -21,6 +21,8 @@ public class EnvironmentalBehavior : MonoBehaviour
         celestialBodies = GameObject.FindGameObjectsWithTag("CelestialBody");
 
         InitialVelocity();
+
+        AudioManager.Instance.PlaySFX("SpaceBackgroundSound", looping: true);
     }
 
     // Update is called once per frame
